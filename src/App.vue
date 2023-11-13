@@ -38,7 +38,7 @@
       </div>
     </section>
     <dialog class="dialog dialog-create" ref="dialogCreate">
-      <button type="button" aria-label="Закрыть" class="dialog__cancel">
+      <button type="button" aria-label="Закрыть" class="dialog__cancel" style="color:#a4a684">
         <icon-base icon-name="cancel">
           <icon-cancel />
         </icon-base>
@@ -91,7 +91,6 @@
     },
     data() {
       return {
-        
       }
     },
 
@@ -168,7 +167,7 @@
       border: none;
 
       svg {
-        fill: #a4a684;
+        // fill: #a4a684;
       }
     }
   }
