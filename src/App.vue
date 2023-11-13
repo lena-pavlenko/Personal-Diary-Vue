@@ -98,6 +98,14 @@
     flex-direction: column;
     justify-content: space-between;
   }
+  .logo {
+    max-width: 100%;
+    width: fit-content;
+
+    img {
+      max-width: 100%;
+    }
+  }
   .header {
     flex: 0 1 auto;
     background-color: #e8d4ce;
@@ -106,6 +114,9 @@
     &__content {
       display: flex;
       justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 20px;
     }
   }
   .footer {
@@ -113,6 +124,10 @@
   }
   .main {
     flex: 1 0 auto;
+  }
+  .main-nav {
+    display: flex;
+    gap: 25px;
   }
   .dialog {
     background-color: #edeedb;
