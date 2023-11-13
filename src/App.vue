@@ -21,7 +21,7 @@
             <div class="banner__title-box">
               <h1 class="title banner__title title_h1">Напиши свою историю</h1>
             </div>
-            <button type="button" class="button banner__button">
+            <button type="button" class="button banner__button" @click="this.$refs.dialogCreate.showModal()">
               <span class="button__icon">
                 <img src="./assets/images/pen.svg" alt="" />
               </span>
@@ -37,7 +37,12 @@
         </picture>
       </div>
     </section>
-    <dialog class="dialog dialog-create">
+    <dialog class="dialog dialog-create" ref="dialogCreate">
+      <button type="button" aria-label="Закрыть" class="dialog__cancel" style="color:#a4a684">
+        <icon-base icon-name="cancel">
+          <icon-cancel />
+        </icon-base>
+      </button>
       <form class="form" name="create-post-form">
         <div class="form-item">
           <label for="titlePost" class="form-item__label">Заголовок поста</label>
@@ -57,8 +62,12 @@
             placeholder="Сегодня произошло такое..."
           ></textarea>
         </div>
-      
-      
+        <button type="submit" class="button form__button" @click="this.$refs.dialogCreate.close()">
+          <span class="button__icon">
+            <img src="./assets/images/pen.svg" alt="" />
+          </span>
+          <span class="button__text">Опубликовать</span>
+        </button>
     </form>
     </dialog>
     
@@ -72,19 +81,28 @@
 </template>
 
 <script>
+  import IconBase from '@/components/icons/IconBase'
+  import IconCancel from '@/components/icons/IconCancel'
+
   export default {
+    components: {
+      IconBase,
+      IconCancel
+    },
     data() {
       return {
-        
       }
     },
 
     methods: {
-      
+      // openDialog() {
+      //   this.$refs.dialogCreate.showModal()
+      // }
     },
 
     mounted() {
-      
+      const dialog = document.querySelector('.dialog-create')
+      console.dir(dialog)
     },
   }
 </script>
@@ -98,6 +116,14 @@
     flex-direction: column;
     justify-content: space-between;
   }
+  .logo {
+    max-width: 100%;
+    width: fit-content;
+
+    img {
+      max-width: 100%;
+    }
+  }
   .header {
     flex: 0 1 auto;
     background-color: #e8d4ce;
@@ -106,6 +132,9 @@
     &__content {
       display: flex;
       justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 20px;
     }
   }
   .footer {
@@ -114,13 +143,33 @@
   .main {
     flex: 1 0 auto;
   }
+  .main-nav {
+    display: flex;
+    gap: 25px;
+  }
   .dialog {
-    background-color: #edeedb;
+    background-color: #e8d4ce;
     border: none;
     border-radius: 5px;
-    width: 90vw;
+    width: calc(100% - 40px);
+    max-width: 600px;
     padding: 20px;
     margin: 0 auto;
+    top: 20%;
+
+    &::backdrop {
+      background: rgba(164, 166, 132, 0.68);
+    }
+
+    &__cancel {
+      background: transparent;
+      padding: 0;
+      border: none;
+
+      svg {
+        // fill: #a4a684;
+      }
+    }
   }
   .form-item {
     display: flex;
