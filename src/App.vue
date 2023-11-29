@@ -38,7 +38,7 @@
       </div>
     </section>
     <dialog class="dialog dialog-create" ref="dialogCreate">
-      <button type="button" aria-label="Закрыть" class="dialog__cancel" style="color:#a4a684">
+      <button type="button" aria-label="Закрыть" class="dialog__cancel" style="color:#a4a684" @click="this.$refs.dialogCreate.close()">
         <icon-base icon-name="cancel">
           <icon-cancel />
         </icon-base>
@@ -52,6 +52,8 @@
             id="titlePost" 
             name="title"
             placeholder="День 1"
+            :value="title"
+            @input="title = $event.target.value"
           >
         </div>
         <div class="form-item">
@@ -60,9 +62,11 @@
             name="description" 
             id="descPost"
             placeholder="Сегодня произошло такое..."
+            :value="description"
+            @input="description = $event.target.value"
           ></textarea>
         </div>
-        <button type="submit" class="button form__button" @click="this.$refs.dialogCreate.close()">
+        <button type="submit" class="button form__button" @click.prevent="crearePost">
           <span class="button__icon">
             <img src="./assets/images/pen.svg" alt="" />
           </span>
@@ -70,7 +74,16 @@
         </button>
     </form>
     </dialog>
-    
+    <section class="posts">
+      <div class="container">
+        <div class="post-box">
+          <div class="post-item" v-for="post in posts">
+            <h2 class="post-item__title">{{ post.title }}</h2>
+            <p class="post-item__desc">{{ post.description }}</p>
+          </div>
+        </div>
+      </div>
+    </section>
   </main>
   <footer class="footer">
     <div class="container">
@@ -91,6 +104,18 @@
     },
     data() {
       return {
+        title: '',
+        description: '',
+        posts: [
+          {
+            title: 'title1',
+            description: 'description1'
+          },
+          {
+            title: 'title2',
+            description: 'description2'
+          },
+        ]
       }
     },
 
@@ -98,6 +123,17 @@
       // openDialog() {
       //   this.$refs.dialogCreate.showModal()
       // }
+      crearePost() {
+        const newPost = {
+          id: Date.now(),
+          title: this.title,
+          description: this.description
+        }
+
+        this.posts.push(newPost)
+
+        this.$refs.dialogCreate.close()
+      }
     },
 
     mounted() {
@@ -165,10 +201,7 @@
       background: transparent;
       padding: 0;
       border: none;
-
-      svg {
-        // fill: #a4a684;
-      }
+      cursor: pointer;
     }
   }
   .form-item {
