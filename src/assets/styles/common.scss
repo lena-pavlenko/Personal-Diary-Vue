@@ -1,25 +1,87 @@
-$buttonWidthLarge: 250px;
-$buttonHeightLarge: 60px;
-
-*{
+*,
+*::after,
+*::before{
     box-sizing: border-box;
 }
+
 html {
-    height: 100%;
+    position: relative;
+    overflow-x: hidden;
+    box-sizing: border-box;
 }
+  
+  *,
+  *::before,
+  *::after {
+    box-sizing: inherit;
+}
+  
 body {
-    height: 100%;
+    position: relative;
+    overflow-x: hidden;
+    min-width: 320px;
+    min-height: 100vh;
+    padding: 0;
+    margin: 0;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    -webkit-tap-highlight-color: transparent;
     font-family: 'Ubuntu', sans-serif;
     font-size: 14px;
     line-height: 1.2;
     font-weight: 400;
-    margin: 0;
-    padding: 0;
-    scrollbar-gutter: stable;
-    min-width: 320px;
+    color: #56583c;
+    background-color: #edeedb;
 }
+  
+  
+img,
+svg {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+  
+svg {
+    max-height: 100%;
+}
+  
+button {
+    padding: 0;
+    cursor: pointer;
+    border: none;
+    background-color: transparent;
+}
+  
+a {
+    text-decoration: none;
+    color: inherit;
+}
+  
+ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+  
+h1,
+h2,
+h3,
+p,
+figure,
+fieldset {
+    margin: 0;
+}
+
 .container {
     max-width: 1640px;
     margin: 0 auto;
     padding: 0 20px;
+}
+
+.visually-hidden {
+    position: fixed;
+    transform: scale(0);
 }
