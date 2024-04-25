@@ -2,106 +2,23 @@
   <header class="header">
     <div class="container">
       <div class="header__content">
-        <a href="/" class="logo">
-          <img src="./assets/images/logo.svg" alt="dear diary логотип">
-        </a>
+        <router-link class="main-nav__link" v-if="!isMain" to="/">
+          <img class="logo" src="./assets/images/logo.svg" width="314px" height="68px" alt="dear diary логотип">
+        </router-link>
+        <img class="logo" src="./assets/images/logo.svg" width="314px" height="68px" alt="dear diary логотип" v-else>
         <nav class="main-nav">
-          <a href="#" class="main-nav__link">Избранное</a>
-          <a href="#" class="main-nav__link">Интересные факты</a>
-          <a href="#" class="main-nav__link">Профиль</a>
+          <router-link class="main-nav__link" to="/favorite">Избранное</router-link>
+          <router-link class="main-nav__link" to="/facts">Интересные факты</router-link>
+          <router-link class="main-nav__link" to="/personal">Профиль</router-link>
         </nav>
       </div>
     </div>
   </header>
-  <main class="main">
-    <section class="banner">
-      <div class="container">
-        <div class="banner__wrapper">
-          <div class="banner__content">
-            <div class="banner__title-box">
-              <h1 class="title banner__title title_h1">Напиши свою историю</h1>
-            </div>
-            <button type="button" class="button banner__button" @click="this.$refs.dialogCreate.showModal()">
-              <span class="button__icon">
-                <img src="./assets/images/pen.svg" alt="" />
-              </span>
-              <span class="button__text">Создать запись</span>
-            </button>
-          </div>
-        </div>
-      </div>
-      <div class="banner-box">
-        <picture>
-          <source srcset="./assets/images/banner.webp" />
-          <img src="./assets/images/banner.webp" alt="баннер дневник" />
-        </picture>
-      </div>
-    </section>
-    <dialog class="dialog dialog-create" ref="dialogCreate">
-      <button type="button" aria-label="Закрыть" class="dialog__cancel" style="color:#a4a684" @click="this.$refs.dialogCreate.close()">
-        <icon-base icon-name="cancel">
-          <icon-cancel />
-        </icon-base>
-      </button>
-      <form class="form" name="create-post-form">
-        <div class="form-item">
-          <label for="titlePost" class="form-item__label">Заголовок поста</label>
-          <input 
-            type="text" 
-            class="form-item__input" 
-            id="titlePost" 
-            name="title"
-            placeholder="День 1"
-            :value="title"
-            @input="title = $event.target.value"
-          >
-        </div>
-        <div class="form-item">
-          <label for="descPost" class="form-item__label">Описание</label>
-          <textarea 
-            name="description" 
-            id="descPost"
-            placeholder="Сегодня произошло такое..."
-            :value="description"
-            @input="description = $event.target.value"
-          ></textarea>
-        </div>
-        <button type="submit" class="button form__button" @click.prevent="crearePost">
-          <span class="button__icon">
-            <img src="./assets/images/pen.svg" alt="" />
-          </span>
-          <span class="button__text">Опубликовать</span>
-        </button>
-    </form>
-    </dialog>
-    <section class="posts">
-      <div class="container">
-        <div class="post-box">
-          <div class="post-item" v-for="post in posts">
-            <h2 class="post-item__title">{{ post.title }}</h2>
-            <p class="post-item__desc">{{ post.description }}</p>
-          </div>
-        </div>
-      </div>
-    </section>
-  </main>
-  <footer class="footer">
-    <div class="container">
-      <div class="footer__content">Footer</div>
-    </div>
-  </footer>
-  
+  <router-view></router-view>
 </template>
 
 <script>
-  import IconBase from '@/components/icons/IconBase'
-  import IconCancel from '@/components/icons/IconCancel'
-
   export default {
-    components: {
-      IconBase,
-      IconCancel
-    },
     data() {
       return {
         title: '',
@@ -120,26 +37,23 @@
     },
 
     methods: {
-      // openDialog() {
-      //   this.$refs.dialogCreate.showModal()
-      // }
-      crearePost() {
-        const newPost = {
-          id: Date.now(),
-          title: this.title,
-          description: this.description
-        }
 
-        this.posts.push(newPost)
-
-        this.$refs.dialogCreate.close()
-      }
     },
 
     mounted() {
-      const dialog = document.querySelector('.dialog-create')
-      console.dir(dialog)
+      
     },
+
+    computed: {
+      isMain() {
+        if (this.$route.name === 'main') {
+          return true
+        } else {
+          return false
+        }
+      }
+    }
+    
   }
 </script>
 
@@ -152,14 +66,7 @@
     flex-direction: column;
     justify-content: space-between;
   }
-  .logo {
-    max-width: 100%;
-    width: fit-content;
 
-    img {
-      max-width: 100%;
-    }
-  }
   .header {
     flex: 0 1 auto;
     background-color: #e8d4ce;
@@ -173,149 +80,26 @@
       gap: 20px;
     }
   }
-  .footer {
-    flex: 0 1 auto;
+
+  .logo {
+    max-width: 100%;
+    width: 314px;
   }
-  .main {
-    flex: 1 0 auto;
-  }
+
   .main-nav {
     display: flex;
     gap: 25px;
-  }
-  .dialog {
-    background-color: #e8d4ce;
-    border: none;
-    border-radius: 5px;
-    width: calc(100% - 40px);
-    max-width: 600px;
-    padding: 20px;
-    margin: 0 auto;
-    top: 20%;
+    color: #a4a684;
 
-    &::backdrop {
-      background: rgba(164, 166, 132, 0.68);
-    }
-
-    &__cancel {
-      background: transparent;
-      padding: 0;
-      border: none;
-      cursor: pointer;
-    }
-  }
-  .form-item {
-    display: flex;
-    flex-direction: column;
-  }
-  .button {
-    display: inline-flex;
-    background-color: #c27a88;
-    height: $buttonHeightLarge;
-    width: $buttonWidthLarge;
-    color:#56583c;
-    text-transform: uppercase;
-    text-decoration: none;
-    font-size: 16px;
-    letter-spacing: 1.5px;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    position: relative;
-    cursor: pointer;
-    padding: 0;
-    border: none;
-    font-weight: 700;
-
-    &__icon {
-      width: 100%;
-      height: 100%;
-      background: #edeedb;
-      left: -$buttonWidthLarge;
-      position: absolute;
-      padding: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all .35s ease-Out;
-      bottom: 0;
-    }
-
-    &__text {
-      position: relative;
-      left: 0;
-      transition: all .35s ease-Out;
-    }
-
-    img {
-      width: 20px;
-      height: auto;
-    }
-
-    &:hover {
-
-      .button__icon {
-        left: 0;
-      }
-
-      .button__text {
-        left: $buttonWidthLarge;
-      }
-    }
-  }
-  .title {
-    margin: 0;
-
-    &_h1 {
-      font-size: clamp(1.75rem, 5.5vw + 0.3rem, 4.5rem);
-      color: #56583c;
-    }
-  }
-  
-  .banner-box {
-    position: relative;
-    width: 100%;
-    aspect-ratio: 1200/320;
-
-    img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-  }
-
-  .banner {
-    &__wrapper {
-      position: relative;
-    }
-
-    &__content {
-      position: absolute;
-      z-index: 2;
-      top: 5vw;
-      display: flex;
+    @media(max-width:500px) {
       flex-direction: column;
-      gap: 2vw;
     }
 
-    &__title-box {
-      background-color: rgb(237,238,219,0.36);
-      width: auto;
-      padding: 10px;
-      
-    }
-
-    &__title {
-      font-family: 'Marck Script', cursive;
-    }
-
-    &__button {
-      width: 250px;
-
+    &__link {
+      font-size: 18px;
+      line-height: 1.2;
+      text-decoration: none;
     }
   }
-
-  
-
   
 </style>
