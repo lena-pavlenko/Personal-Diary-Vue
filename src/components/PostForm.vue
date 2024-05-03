@@ -2,23 +2,47 @@
   <form class="form" name="create-post-form">
     <div class="form-item">
       <label class="form-item__label" for="titlePost">Заголовок поста</label>
-      <input class="form-item__input" type="text" id="titlePost" name="title" placeholder="День 1"
-        :class="{ 'form-item__invalid': post.errors.title }" v-model.trim="post.title" @input="post.errors.title = ''">
-      <p class="form-item__invalid-text" v-if="post.errors.title">{{ this.post.errors.title }}</p>
+
+      <input 
+        class="form-item__input" 
+        type="text" 
+        id="titlePost" 
+        name="title" 
+        placeholder="День 1"
+        :class="{ 'form-item__invalid': post.errors.title }" 
+        v-model.trim="post.title" 
+        @input="post.errors.title = ''">
+
+      <p 
+        class="form-item__invalid-text" 
+        v-if="post.errors.title">{{ this.post.errors.title }}
+      </p>
     </div>
 
     <div class="form-item">
       <label class="form-item__label" for="descPost">Описание</label>
-      <textarea class="form-item__input form-item__textarea" name="description" id="descPost"
-        placeholder="Сегодня произошло такое..." :class="{ 'form-item__invalid': post.errors.description }"
-        v-model.trim="post.description" @input="autoGrow($event.target), post.errors.description = ''">
+
+      <textarea 
+        class="form-item__input form-item__textarea" 
+        name="description" 
+        id="descPost"
+        placeholder="Сегодня произошло такое..." 
+        :class="{ 'form-item__invalid': post.errors.description }"
+        v-model.trim="post.description" 
+        @input="autoGrow($event.target), post.errors.description = ''">
       </textarea>
-      <p class="form-item__invalid-text" v-if="post.errors.description">
+
+      <p 
+        class="form-item__invalid-text" 
+        v-if="post.errors.description">
         {{ this.post.errors.description }}
       </p>
     </div>
 
-    <button-item class="form__button" type="submit" @click.prevent="createPost">
+    <button-item 
+      class="form__button" 
+      type="submit" 
+      @click.prevent="createPost">
       Опубликовать
     </button-item>
   </form>

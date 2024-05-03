@@ -31,7 +31,9 @@
   </dialog>
 
   <section class="posts">
-    <div class="container"></div>
+    <div class="container">
+      <post-list :posts="posts" @remove="removePost"></post-list>
+    </div>
   </section>
 
 
@@ -41,6 +43,7 @@
 import IconBase from '@/components/icons/IconBase'
 import IconCancel from '@/components/icons/IconCancel'
 import PostForm from '@/components/PostForm'
+import PostList from '@/components/PostList'
 import ButtonItem from '@/components/ButtonItem'
 
 export default {
@@ -48,13 +51,12 @@ export default {
     IconBase,
     IconCancel,
     PostForm,
+    PostList,
     ButtonItem,
   },
 
   data() {
     return {
-      title: '',
-      description: '',
       posts: [],
     }
   },
@@ -62,12 +64,19 @@ export default {
   methods: {
     createPost(post) {
       this.posts.push(post)
+      localStorage.setItem("posts", JSON.stringify(this.posts));
       this.$refs.dialogCreate.close()
-    }
+    },
+
+    removePost(post) {
+      this.posts = this.posts.filter(el => el.id !== post.id)
+      console.log(this.posts);
+      localStorage.setItem("posts", JSON.stringify(this.posts));
+    },
   },
 
   mounted() {
-
+    this.posts = JSON.parse(localStorage.getItem("posts")) || []
   },
 }
 </script>
@@ -111,7 +120,7 @@ export default {
 .banner {
   position: relative;
   width: 100%;
-  min-height: 100vh;
+  min-height: 650px;
   padding-top: 100px;
   background-image: url('../assets/images/banner.webp');
   background-image: image-set(url('../assets/images/banner.webp') type('image/webp') 1x,
@@ -121,6 +130,15 @@ export default {
   background-position: center;
   background-repeat: no-repeat;
   background-attachment: fixed;
+
+  @media(max-width:991px) {
+    min-height: 500px;
+  }
+
+  @media(max-width:500px) {
+    min-height: 350px;
+    padding: 70px 0;
+  }
 
   &__wrapper {
     position: relative;
@@ -140,6 +158,14 @@ export default {
 
   &__title {
     font-family: 'Marck Script', cursive;
+  }
+}
+
+.posts {
+  padding: 80px 0;
+
+  @media(max-width:500px) {
+    padding: 50px 0;
   }
 }
 </style>

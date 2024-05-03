@@ -74,5 +74,54 @@ export default {
       left: 250px;
     }
   }
+
+  &_danger {
+    background: rgb(196, 44, 44);
+    min-width: 150px;
+    width: 150px;
+
+    @media(max-width:500px) {
+      min-width: auto;
+      width: 100px;
+      height: 40px;
+    }
+
+    .button__icon {
+      left: -150px;
+
+      @media(max-width:500px) {
+        display: none;
+      }
+
+      &::after {
+        background-image: url(../assets/images/delete.svg);
+        height: 28px;
+        width: 28px;
+      }
+    }
+
+    .button__text {
+      left: 0px;
+
+      @media(max-width:500px) {
+        left: 0;
+      }
+    }
+
+    &:hover {
+
+      .button__icon {
+        left: 0px;
+      }
+
+      .button__text {
+        left: 150px;
+
+        @media(max-width:500px) {
+          left: 0;
+        }
+      }
+    }
+  }
 }
 </style>
