@@ -70,7 +70,6 @@ export default {
 
     removePost(post) {
       this.posts = this.posts.filter(el => el.id !== post.id)
-      console.log(this.posts);
       localStorage.setItem("posts", JSON.stringify(this.posts));
     },
   },
