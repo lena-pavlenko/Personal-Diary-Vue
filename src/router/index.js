@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import Main from '@/pages/Main';
 import Favorite from '@/pages/Favorite';
-import Facts from '@/pages/Facts';
+import Quotes from '@/pages/Quotes';
 import Personal from '@/pages/Personal';
 
 const routes = [
@@ -18,9 +18,9 @@ const routes = [
     },
 
     {
-        path: '/facts',
-        name: 'facts',
-        component: Facts
+        path: '/quotes',
+        name: 'quotes',
+        component: Quotes
     },
 
     {

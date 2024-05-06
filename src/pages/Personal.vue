@@ -1,7 +1,7 @@
 <template>
   <div class="personal-page">
     <div class="container">
-      <h1>Профиль</h1>
+      <h1 class="title title_h1">Профиль</h1>
       <form class="form form-personal">
         <fieldset class="form-item">
           <label class="form-item__label" for="userPhoto">Загрузите ссылку на фото</label>
@@ -15,7 +15,7 @@
           />
         </fieldset>
 
-        <div class="photo">
+        <div class="photo" v-if="profile.photo">
           <img :src="profile.photo" :alt="profile.name">
         </div>
 
@@ -82,6 +82,16 @@
       </form>
     </div>
   </div>
+  <div class="toast" :class="toastActive ? 'active' : ''">
+
+    <div class="toast__content">
+      <div class="toast__message">
+        <span class="toast__text">Изменения были сохранены!</span>
+      </div>
+    </div>
+
+    <button type="button" class="toast__close" @click="toastActive = false">x</button>
+  </div>
 </template>
 
 <script>
@@ -101,11 +111,13 @@ export default {
         city: '',
         errors: {},
       },
+      toastActive: false,
     }
   },
   methods: {
     editProfile() {
       localStorage.setItem("profile", JSON.stringify(this.profile));
+      this.toastActive = true
     },
 
     autoGrow(el) {
@@ -121,7 +133,6 @@ export default {
     },
 
     pasteText(event) {
-      console.log(event.clipboardData.getData('text/plain'))
       if (event.clipboardData.getData('text/plain').length >= 300) {
         event.target.value = event.clipboardData.getData('text/plain').slice(0, 299)
         return false
@@ -186,6 +197,55 @@ export default {
       height: 100%;
       width: 100%;
       object-fit: cover;
+    }
+  }
+
+  .toast {
+    position: absolute;
+    top: 25px;
+    right: 30px;
+    border-radius: 12px;
+    background: #fff;
+    padding: 20px 35px 20px 25px;
+    box-shadow: 0 6px 20px -5px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transform: translateX(calc(100% + 30px));
+    transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.35);
+
+    &.active {
+      transform: translateX(0%);
+    }
+
+    &__content {
+      display: flex;
+      align-items: center;
+    }
+
+    &__message {
+      display: flex;
+      flex-direction: column;
+      margin: 0 20px;
+    }
+
+    &__text {
+      font-size: 16px;
+      font-weight: 400;
+      color: #666666;
+    }
+
+    &__close {
+      position: absolute;
+      top: 0px;
+      right: 15px;
+      padding: 0;
+      cursor: pointer;
+      opacity: 0.7;
+      font-size: 20px;
+      font-family: cursive;
+
+      &:hover {
+        opacity: 1;
+      }
     }
   }
 </style>
