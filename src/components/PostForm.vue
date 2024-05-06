@@ -1,6 +1,6 @@
 <template>
-  <form class="form" name="create-post-form">
-    <div class="form-item">
+  <form class="form">
+    <fieldset class="form-item">
       <label class="form-item__label" for="titlePost">Заголовок поста</label>
 
       <input 
@@ -17,9 +17,9 @@
         class="form-item__invalid-text" 
         v-if="post.errors.title">{{ this.post.errors.title }}
       </p>
-    </div>
+    </fieldset>
 
-    <div class="form-item">
+    <fieldset class="form-item">
       <label class="form-item__label" for="descPost">Описание</label>
 
       <textarea 
@@ -37,7 +37,7 @@
         v-if="post.errors.description">
         {{ this.post.errors.description }}
       </p>
-    </div>
+    </fieldset>
 
     <button-item 
       class="form__button" 
@@ -151,6 +151,8 @@ export default {
   flex-direction: column;
   gap: 5px;
   width: 100%;
+  padding: 0;
+  border: none;
 
   &__label {
     font-family: inherit;

@@ -8,7 +8,7 @@
         <img class="logo" src="./assets/images/logo.svg" width="314px" height="68px" alt="dear diary логотип" v-else>
         <nav class="main-nav">
           <router-link class="main-nav__link" to="favorite">Избранное</router-link>
-          <router-link class="main-nav__link" to="facts">Интересные факты</router-link>
+          <router-link class="main-nav__link" to="quotes">Случайная цитата</router-link>
           <router-link class="main-nav__link" to="personal">Профиль</router-link>
         </nav>
       </div>
@@ -80,6 +80,17 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    height: 100vh;
+  }
+
+  .title {
+    margin: 0;
+
+    &_h1 {
+      font-family: "Marck Script", cursive;
+      font-size: clamp(1.75rem, 5.5vw + 0.3rem, 4.5rem);
+      color: #56583c;
+    }
   }
 
   .main {

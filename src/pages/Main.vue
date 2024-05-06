@@ -5,7 +5,7 @@
         <div class="banner__content">
 
           <div class="banner__title-box">
-            <h1 class="title banner__title title_h1">Напиши свою историю</h1>
+            <h1 class="title title_h1">Напиши свою историю</h1>
           </div>
 
           <button-item class="banner__button" type="button" @click="this.$refs.dialogCreate.showModal()">
@@ -70,7 +70,6 @@ export default {
 
     removePost(post) {
       this.posts = this.posts.filter(el => el.id !== post.id)
-      console.log(this.posts);
       localStorage.setItem("posts", JSON.stringify(this.posts));
     },
   },
@@ -105,15 +104,6 @@ export default {
     padding: 0;
     border: none;
     cursor: pointer;
-  }
-}
-
-.title {
-  margin: 0;
-
-  &_h1 {
-    font-size: clamp(1.75rem, 5.5vw + 0.3rem, 4.5rem);
-    color: #56583c;
   }
 }
 
@@ -154,10 +144,6 @@ export default {
     background-color: rgb(237, 238, 219, 0.36);
     width: auto;
     padding: 10px;
-  }
-
-  &__title {
-    font-family: 'Marck Script', cursive;
   }
 }
 
