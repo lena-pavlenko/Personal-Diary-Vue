@@ -11,7 +11,8 @@
         placeholder="День 1"
         :class="{ 'form-item__invalid': post.errors.title }" 
         v-model.trim="post.title" 
-        @input="post.errors.title = ''">
+        @input="post.errors.title = ''"
+      />
 
       <p 
         class="form-item__invalid-text" 
@@ -66,11 +67,11 @@ export default {
   },
   methods: {
     checkForm() {
-      if (this.post.title && this.post.description) {
+      console.log(this.post.title.length);
+      if ((this.post.title && this.post.description) && (this.post.title.length <= 100 && this.post.description.length <= 1000)) {
+        this.post.errors = {};
         return true;
       }
-      this.post.errors = {};
-
       if (!this.post.title) {
         this.post.errors.title = 'Укажите заголовок'
       }
@@ -78,10 +79,18 @@ export default {
         this.post.errors.description = 'Укажите описание'
       }
 
+      if (this.post.title.length > 100) {
+        this.post.errors.title = 'Слишком длинный заголовок'
+      }
+      if (this.post.description.length > 1000) {
+        this.post.errors.description = 'Слишком длинное описание'
+      }
+
       return false
     },
 
     createPost() {
+      console.log(this.checkForm());
       if (this.checkForm()) {
         this.post.id = Date.now()
         this.$emit('create', this.post)

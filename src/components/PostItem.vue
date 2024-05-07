@@ -1,8 +1,11 @@
 <template>
   <div class="post-item">
-    <div class="post-item__container">
+    <div class="post-item__container" :class="showMoreData ? 'open' : ''" ref="postCont" :style="style">
       <h2 class="post-item__title">{{ post.title }}</h2>
       <p class="post-item__desc">{{ post.description }}</p>
+      <button class="post-item__switcher" type="button" :title="showMoreData ? '' : 'Показать больше'" ref="switcher" @click="showMoreData = !showMoreData">
+        <span v-if="showMoreData">{{ showMoreData ? 'Показать меньше' : '' }}</span>
+      </button>
     </div>
     <button-item class="post-item__button" type="button" :class="class" @click="$emit('remove', post)">
       Удалить
@@ -28,7 +31,18 @@ export default {
 
   data() {
     return {
-      class: 'button_danger'
+      class: 'button_danger',
+      showMoreData: false
+    }
+  },
+
+  methods: {
+
+  },
+
+  computed: {
+    style() {
+      return `height: ${this.showMoreData ? this.$refs.postCont.scrollHeight + this.$refs.switcher.clientHeight : 115}px`; 
     }
   },
 }
@@ -38,7 +52,6 @@ export default {
 .post-item {
   position: relative;
   display: flex;
-  align-items: center;
   gap: 10px;
 
   @media(max-width:720px) {
@@ -47,15 +60,40 @@ export default {
   }
 
   &__container {
+    position: relative;
     display: flex;
     flex-direction: column;
     gap: 10px;
     border: 1px solid #c27a88;
     padding: 10px;
     flex-grow: 1;
+    overflow: hidden;
+    transition: height .3s ease-out;
 
     @media(max-width:720px) {
       width: 100%;
+    }
+
+    &.open {
+
+      .post-item__switcher {
+        background: linear-gradient(180deg, transparent, rgba(237, 238, 219, 0) 50%);
+        position: initial;
+      }
+    }
+  }
+
+  &__switcher {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 40px;
+    background: linear-gradient(180deg, transparent, #edeedb 50%);
+    cursor: pointer;
+
+    span {
+      text-decoration: underline;
     }
   }
 
