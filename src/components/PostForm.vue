@@ -62,12 +62,12 @@ export default {
         title: '',
         description: '',
         errors: {},
+        favorite: false,
       },
     }
   },
   methods: {
     checkForm() {
-      console.log(this.post.title.length);
       if ((this.post.title && this.post.description) && (this.post.title.length <= 100 && this.post.description.length <= 1000)) {
         this.post.errors = {};
         return true;
@@ -90,15 +90,15 @@ export default {
     },
 
     createPost() {
-      console.log(this.checkForm());
       if (this.checkForm()) {
         this.post.id = Date.now()
+        this.post.favorite = false
         this.$emit('create', this.post)
 
         this.post = {
           title: '',
           description: '',
-          errors: {}
+          errors: {},
         }
       }
     },

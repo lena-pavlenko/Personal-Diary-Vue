@@ -1,5 +1,5 @@
 <template>
-  <div class="post-item">
+  <div class="post-item" :data-favorite="post.favorite">
     <div class="post-item__container" :class="showMoreData ? 'open' : ''" ref="postCont" :style="style">
       <h2 class="post-item__title">{{ post.title }}</h2>
       <p class="post-item__desc">{{ post.description }}</p>
@@ -7,9 +7,15 @@
         <span v-if="showMoreData">{{ showMoreData ? 'Показать меньше' : '' }}</span>
       </button>
     </div>
-    <button-item class="post-item__button" type="button" :class="class" @click="$emit('remove', post)">
-      Удалить
-    </button-item>
+    <div class="post-item__buttons">
+      <button-item class="post-item__button" type="button" :class="classDanger" @click="$emit('remove', post)">
+        Удалить
+      </button-item>
+      <button-item class="post-item__button" type="button" :class="classSuccess" @click="$emit('addFavorite', post)">
+        В избранное
+      </button-item>
+    </div>
+    
   </div>
 </template>
 
@@ -26,12 +32,13 @@ export default {
     post: {
       type: Object,
       required: true,
-    }
+    },
   },
 
   data() {
     return {
-      class: 'button_danger',
+      classDanger: 'button_danger',
+      classSuccess: 'button_success',
       showMoreData: false
     }
   },
@@ -48,7 +55,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .post-item {
   position: relative;
   display: flex;
@@ -115,8 +122,59 @@ export default {
     }
   }
 
-  &__button {
-    flex-shrink: 1;
+  &__buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    @media(max-width:500px) {
+      width: 100%;
+    }
+
+    * {
+      min-width: 150px;
+      width: 150px;
+      height: 35px;
+      font-size: 14px;
+      text-transform: none;
+
+      @media(max-width:500px) {
+        min-width: auto;
+        width: 100%;
+        height: 40px;
+      }
+
+      .button__icon {
+        left: -150px;
+      }
+
+      .button__text {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        left: 0px;
+
+        @media(max-width:500px) {
+          left: 0;
+        }
+      }
+
+      &:hover {
+
+        .button__icon {
+          left: 0px;
+        }
+
+        .button__text {
+          left: 150px;
+
+          @media(max-width:500px) {
+            left: 0;
+          }
+        }
+      }
+    }
   }
+
 }
 </style>
