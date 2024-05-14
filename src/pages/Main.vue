@@ -32,7 +32,7 @@
 
   <section class="posts">
     <div class="container">
-      <post-list :posts="posts" @remove="removePost" @addFavorite="addFavorite"></post-list>
+      <post-list :posts="posts" @remove="removePost" @handleFavorite="handleFavorite"></post-list>
     </div>
   </section>
 
@@ -73,8 +73,9 @@ export default {
       localStorage.setItem("posts", JSON.stringify(this.posts));
     },
 
-    addFavorite(post) {
-      post.favorite = true
+    handleFavorite(post) {
+      post.favorite = !post.favorite
+      localStorage.setItem("posts", JSON.stringify(this.posts));
     },
   },
 

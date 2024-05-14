@@ -8,11 +8,11 @@
       </button>
     </div>
     <div class="post-item__buttons">
-      <button-item class="post-item__button" type="button" :class="classDanger" @click="$emit('remove', post)">
+      <button-item class="post-item__button button_danger" type="button" @click="$emit('remove', post)">
         Удалить
       </button-item>
-      <button-item class="post-item__button" type="button" :class="classSuccess" @click="$emit('addFavorite', post)">
-        В избранное
+      <button-item class="post-item__button button_success" type="button" :class="post.favorite ? 'chosen' : ''" @click="$emit('handleFavorite', post)">
+        {{ post.favorite ? 'Убрать из избранного' : 'В избранное' }}
       </button-item>
     </div>
     
@@ -37,8 +37,6 @@ export default {
 
   data() {
     return {
-      classDanger: 'button_danger',
-      classSuccess: 'button_success',
       showMoreData: false
     }
   },

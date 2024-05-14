@@ -1,7 +1,7 @@
 <template>
   <div class="post-box" v-if="posts.length">
     <transition-group name="posts">
-      <post-item v-for="post in posts" :post="post" :key="post.id" @remove="$emit('remove', post)" @addFavorite="$emit('addFavorite', post)" v-if="posts.length" />
+      <post-item v-for="post in posts" :post="post" :key="post.id" @remove="$emit('remove', post)" @handleFavorite="$emit('handleFavorite', post)" v-if="posts.length" />
     </transition-group>
   </div>
   <p class="empty-text" v-else>Записей пока нет</p>

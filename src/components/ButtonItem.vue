@@ -53,6 +53,7 @@ export default {
       background-image: url(../assets/images/pen.svg);
       background-size: contain;
       background-repeat: no-repeat;
+      background-position: center;
       width: 15px;
       height: 17px;
     }
@@ -94,6 +95,7 @@ export default {
 
   &_success {
     background: #a4a684;
+    border: 1px solid #a4a684;
 
     .button__icon {
 
@@ -107,6 +109,33 @@ export default {
         width: 28px;
       }
     }
+  }
+
+  &.chosen {
+
+    .button__icon {
+      left: 0;
+    }
+
+    .button__text {
+      left: -150px;
+
+      @media (max-width: 500px) {
+        left: 0;
+      }
+    }
+
+    &:hover {
+
+      .button__icon {
+        left: 150px;
+      }
+
+      .button__text {
+        left: 0px;
+      }
+    }
+
   }
 }
 </style>
