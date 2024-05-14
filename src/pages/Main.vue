@@ -63,7 +63,7 @@ export default {
 
   methods: {
     createPost(post) {
-      this.posts.push(post)
+      this.posts.unshift(post)
       localStorage.setItem("posts", JSON.stringify(this.posts));
       this.$refs.dialogCreate.close()
     },
