@@ -3,7 +3,7 @@
     <div class="post-item__container" :class="showMoreData ? 'open' : ''" ref="postCont" :style="style">
       <h2 class="post-item__title">{{ post.title }}</h2>
       <p class="post-item__desc">{{ post.description }}</p>
-      <button class="post-item__switcher" type="button" :title="showMoreData ? '' : 'Показать больше'" ref="switcher" @click="showMoreData = !showMoreData">
+      <button class="post-item__switcher" type="button" :class="isMuchText ? '' : 'disabled'" :title="showMoreData ? '' : 'Показать больше'" ref="switcher" @click="showMoreData = !showMoreData">
         <span v-if="showMoreData">{{ showMoreData ? 'Показать меньше' : '' }}</span>
       </button>
     </div>
@@ -37,18 +37,29 @@ export default {
 
   data() {
     return {
-      showMoreData: false
+      showMoreData: false,
+      isMuchText: true,
     }
   },
 
   methods: {
+    ismuchTextCheck() {
+     if (this.$refs.postCont.scrollHeight < 115) {
+      this.isMuchText = false
+     } else {
+      this.isMuchText = true
+     }
+    }
+  },
 
+  mounted() {
+    this.ismuchTextCheck()
   },
 
   computed: {
     style() {
       return `height: ${this.showMoreData ? this.$refs.postCont.scrollHeight + this.$refs.switcher.clientHeight : 115}px`; 
-    }
+    },
   },
 }
 </script>
@@ -99,6 +110,10 @@ export default {
 
     span {
       text-decoration: underline;
+    }
+
+    &.disabled {
+      display: none;
     }
   }
 

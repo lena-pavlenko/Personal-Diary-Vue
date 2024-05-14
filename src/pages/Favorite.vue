@@ -3,7 +3,7 @@
     <div class="container">
       <h1 class="title title_h1">Избранное</h1>
 
-      <section class="posts">
+      <section class="posts favorite-page__posts">
         <div class="container">
           <post-list :posts="favPosts" @remove="removePost" @handleFavorite="handleFavorite"></post-list>
         </div>
@@ -56,6 +56,10 @@ export default {
 
     @media(max-width: 500px) {
       padding: 50px 0;
+    }
+
+    &__posts {
+      margin: 30px 0 0;
     }
   }
 </style>
