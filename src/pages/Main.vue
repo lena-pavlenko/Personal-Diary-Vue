@@ -117,6 +117,7 @@ export default {
   width: 100%;
   min-height: 650px;
   padding-top: 100px;
+  background-color: #edeedb;
   background-image: url('../assets/images/banner.webp');
   background-image: image-set(url('../assets/images/banner.webp') type('image/webp') 1x,
       url('../assets/images/banner@2x.webp') type('image/webp') 2x,
