@@ -185,7 +185,6 @@ export default {
   &__textarea {
     resize: none;
     max-height: 300px;
-    height: 100px;
   }
 
   &__invalid {
