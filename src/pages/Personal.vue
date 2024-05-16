@@ -138,11 +138,21 @@ export default {
         return false
       }
     },
+
+    adjustHeight(el) {
+      if (el.scrollHeight > el.offsetHeight) {
+        el.style.height = `${el.scrollHeight + 10}px`
+      }
+    }
   },
 
   mounted() {
     this.profile = JSON.parse(localStorage.getItem("profile")) || {}
   },
+
+  updated() {
+    this.adjustHeight(document.getElementById('userBio'))
+  }
 }
 </script>
 
@@ -201,7 +211,7 @@ export default {
   }
 
   .toast {
-    position: absolute;
+    position: fixed;
     top: 25px;
     right: 30px;
     border-radius: 12px;

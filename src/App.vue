@@ -27,7 +27,7 @@
         </router-link>
         <img class="logo footer__logo" src="./assets/images/logo-light.svg" width="314px" height="68px" alt="dear diary логотип" v-else>
 
-        <p class="footer__copyright">©Petshop, 2024</p>
+        <p class="footer__copyright">DearDiary, 2024</p>
 
         <address class="footer__contacts">
           <p>Developer:</p>
