@@ -32,7 +32,7 @@
 
   <section class="posts">
     <div class="container">
-      <post-list :posts="posts" @remove="removePost"></post-list>
+      <post-list :posts="posts" @remove="removePost" @handleFavorite="handleFavorite"></post-list>
     </div>
   </section>
 
@@ -63,13 +63,18 @@ export default {
 
   methods: {
     createPost(post) {
-      this.posts.push(post)
+      this.posts.unshift(post)
       localStorage.setItem("posts", JSON.stringify(this.posts));
       this.$refs.dialogCreate.close()
     },
 
     removePost(post) {
       this.posts = this.posts.filter(el => el.id !== post.id)
+      localStorage.setItem("posts", JSON.stringify(this.posts));
+    },
+
+    handleFavorite(post) {
+      post.favorite = !post.favorite
       localStorage.setItem("posts", JSON.stringify(this.posts));
     },
   },

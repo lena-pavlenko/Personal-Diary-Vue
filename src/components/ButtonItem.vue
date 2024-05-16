@@ -53,6 +53,7 @@ export default {
       background-image: url(../assets/images/pen.svg);
       background-size: contain;
       background-repeat: no-repeat;
+      background-position: center;
       width: 15px;
       height: 17px;
     }
@@ -77,17 +78,8 @@ export default {
 
   &_danger {
     background: rgb(196, 44, 44);
-    min-width: 150px;
-    width: 150px;
-
-    @media(max-width:500px) {
-      min-width: auto;
-      width: 100px;
-      height: 40px;
-    }
 
     .button__icon {
-      left: -150px;
 
       @media(max-width:500px) {
         display: none;
@@ -99,11 +91,36 @@ export default {
         width: 28px;
       }
     }
+  }
 
-    .button__text {
-      left: 0px;
+  &_success {
+    background: #a4a684;
+    border: 1px solid #a4a684;
+
+    .button__icon {
 
       @media(max-width:500px) {
+        display: none;
+      }
+
+      &::after {
+        background-image: url(../assets/images/heart.svg);
+        height: 28px;
+        width: 28px;
+      }
+    }
+  }
+
+  &.chosen {
+
+    .button__icon {
+      left: 0;
+    }
+
+    .button__text {
+      left: -150px;
+
+      @media (max-width: 500px) {
         left: 0;
       }
     }
@@ -111,17 +128,14 @@ export default {
     &:hover {
 
       .button__icon {
-        left: 0px;
+        left: 150px;
       }
 
       .button__text {
-        left: 150px;
-
-        @media(max-width:500px) {
-          left: 0;
-        }
+        left: 0px;
       }
     }
+
   }
 }
 </style>
